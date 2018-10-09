@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -30,12 +31,6 @@ public class NumberSlider extends LottieAnimationView {
     private TextPaint mTextPaint;
     GestureListener gestureListener;
 
-    @Override
-    public void setOnTouchListener(OnTouchListener l) {
-        super.setOnTouchListener(l);
-        this.setOnTouchListener(gestureListener);
-    }
-
     public NumberSlider(Context context) {
         super(context);
         init(null, 0);
@@ -53,7 +48,8 @@ public class NumberSlider extends LottieAnimationView {
 
     private void init(AttributeSet attrs, int defStyle) {
         // Load attributes
-        gestureListener = new GestureListener(this);
+        setGestureDetector();
+
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.NumberSlider, defStyle, 0);
 
@@ -85,7 +81,19 @@ public class NumberSlider extends LottieAnimationView {
 
         // Update TextPaint and text measurements from attributes
         invalidateTextPaintAndMeasurements();
+    }
 
+    private void setGestureDetector() {
+        gestureListener = new GestureListener(this);
+        final GestureDetector gestureDetector = new GestureDetector(this.getContext(),gestureListener);
+
+        this.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(final View view, final MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
     }
 
     private void invalidateTextPaintAndMeasurements() {
@@ -124,6 +132,8 @@ public class NumberSlider extends LottieAnimationView {
         }
     }
 
+
+
     /**
      * Sets the view's example dimension attribute value. In the example view, this dimension
      * is the font size.
@@ -136,10 +146,10 @@ public class NumberSlider extends LottieAnimationView {
 
     }
 
-    class GestureListener extends GestureDetector.SimpleOnGestureListener implements View.OnTouchListener {
-        Context context;
-        GestureDetector gestureDetector;
-        LottieAnimationView lottieAnimationView;
+    class GestureListener extends GestureDetector.SimpleOnGestureListener implements GestureDetector.OnGestureListener {
+        private Context context;
+        private GestureDetector gestureDetector;
+        private LottieAnimationView lottieAnimationView;
 
         public GestureListener(LottieAnimationView lottieAnimationView) {
             this(lottieAnimationView.getContext(), null);
@@ -152,7 +162,6 @@ public class NumberSlider extends LottieAnimationView {
             this.context = context;
             this.gestureDetector = _gestureDetector;
         }
-
 
         public GestureDetector getDetector() {
             return gestureDetector;
@@ -170,9 +179,5 @@ public class NumberSlider extends LottieAnimationView {
             lottieAnimationView.setProgress(0.4f);
         }
 
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            return false;
-        }
     }
 }
