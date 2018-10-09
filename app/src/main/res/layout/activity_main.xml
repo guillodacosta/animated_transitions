@@ -30,11 +30,9 @@
     -->
     <co.com.ceiba.heisenberglab.animated_transitions.NumberSlider
         android:id="@+id/numberSlider"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="200dp"
+        android:layout_height="250dp"
         android:background="#ccc"
-        android:paddingBottom="40dp"
-        android:paddingLeft="20dp"
         app:lottie_rawRes="@raw/thermometer"
         />
 
