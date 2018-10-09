@@ -15,4 +15,27 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
+    <co.com.ceiba.heisenberglab.animated_transitions.NumberSlider
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="#ccc"
+        android:paddingBottom="40dp"
+        android:paddingLeft="20dp"
+        app:animationSource="@android:drawable/ic_menu_add"
+        app:backgroundColor="#33b5e5"
+        app:end="3.0"
+        app:size="24sp"
+        app:start="1.0" />
+    -->
+    <co.com.ceiba.heisenberglab.animated_transitions.NumberSlider
+        android:id="@+id/numberSlider"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="#ccc"
+        android:paddingBottom="40dp"
+        android:paddingLeft="20dp"
+        app:lottie_rawRes="@raw/thermometer"
+        />
+
 </android.support.constraint.ConstraintLayout>

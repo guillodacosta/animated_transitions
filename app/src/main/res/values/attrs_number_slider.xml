@@ -1,0 +1,9 @@
+<resources>
+    <declare-styleable name="NumberSlider">
+        <attr name="backgroundColor" format="color" />
+        <attr name="end" format="float" />
+        <attr name="size" format="dimension" />
+        <attr name="start" format="float" />
+        <attr name="animationSource" format="reference" />
+    </declare-styleable>
+</resources>
