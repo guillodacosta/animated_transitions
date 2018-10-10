@@ -132,8 +132,6 @@ public class NumberSlider extends LottieAnimationView {
         }
     }
 
-
-
     /**
      * Sets the view's example dimension attribute value. In the example view, this dimension
      * is the font size.
@@ -150,6 +148,7 @@ public class NumberSlider extends LottieAnimationView {
         private Context context;
         private GestureDetector gestureDetector;
         private LottieAnimationView lottieAnimationView;
+        private float animationFase = 0f;
 
         public GestureListener(LottieAnimationView lottieAnimationView) {
             this(lottieAnimationView.getContext(), null);
@@ -169,15 +168,30 @@ public class NumberSlider extends LottieAnimationView {
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            lottieAnimationView.setProgress(0.4f);
+           //lottieAnimationView.setProgress(0.4f);
             return true;
         }
 
         @Override
         public void onLongPress(MotionEvent e) {
             super.onLongPress(e);
-            lottieAnimationView.setProgress(0.4f);
+            animationFase = 0.4f;
+            lottieAnimationView.setProgress(animationFase);
         }
 
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            if (distanceY < 0){
+                if (animationFase > 0f){
+                    animationFase  = animationFase - 0.008f;
+                }
+            }else{
+                if (animationFase < 0.47f){
+                    animationFase  = animationFase + 0.008f;
+                }
+            }
+            lottieAnimationView.setProgress(animationFase);
+            return true;
+        }
     }
 }
